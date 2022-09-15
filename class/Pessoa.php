@@ -1,6 +1,7 @@
 <?php
 require("../../config/connection.php");
-require("../../class/Validator.php");
+require("../../class/Validador.php");
+require("../../class/MsgException.php");
 
 class Pessoa
 {
@@ -23,19 +24,29 @@ class Pessoa
         try {
             $this->lastError = [];
 
-            $nome = isset($data['name']) && $data['name'] != '' ? Validador::clearData($data['name']) : null;
+            $nome = isset($data['nome']) && $data['nome'] != '' ? Validador::clearData($data['nome']) : null;
 
             if (!$nome) {
-                $this->lastError[] = array('msg' => MsgException::INFORME_NOME, 'field' => "name");
+                $this->lastError[] = array('msg' => MsgException::INFORME_NOME, 'field' => "nome");
             }
+
+            echo "testte";
 
             $connection = new Database();
 
             $stmt = $connection->connection()->prepare(
-                'INSERT INTO `user` (`nome`) VALUES (:nome)'
+                'INSERT INTO `pessoa` (`nome`) VALUES (:nome)'
             );
 
-            $stmt->bindParam(":name",  $nome,  PDO::PARAM_STR);
+            $stmt->bindParam(":nome",  $nome,  PDO::PARAM_STR);
+
+            if ($stmt->execute()) {
+                $this->lastMsg = "Pessoa cadastrada com sucesso!";
+                return true;
+            } else {
+                $this->lastError[] = array('msg' => "Ocorreu um erro ao cadastrar pessoa!", 'field' => "execute");
+                return false;
+            }
 
         } catch (\Throwable $th) {
             $this->lastError[] = array('msg' => $th->getMessage(), 'field' => "execute");
