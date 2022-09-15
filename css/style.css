@@ -2,6 +2,10 @@ body {
     background-color: black;
 }
 
+.error{
+    color: red;
+}
+
 #container-principal{
     background-color: lightyellow;
 }
