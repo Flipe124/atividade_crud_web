@@ -111,7 +111,36 @@ class Pessoa
                 $this->lastError[] = array('msg' => "Ocorreu um erro ao cadastrar pessoa!", 'field' => "execute");
                 return false;
             }
+        } catch (\Throwable $th) {
+            $this->lastError[] = array('msg' => $th->getMessage(), 'field' => "execute");
+            return false;
+        }
+    }
 
+    function delete($data)
+    {
+        try {
+            $this->lastError = [];
+
+            $id = isset($data['id']) && $data['id'] != '' ? Validador::clearData($data['id']) : null;
+
+            if (!$id) {
+                $this->lastError[] = array('msg' => "alterar", 'field' => "delete");
+                return false;
+            }
+
+            $connection = new Database();
+
+            $stmt = $connection->connection()->prepare('DELETE FROM pessoa WHERE id = :id'); // DELETA O USUÁRIO NA POSIÇÃO ID
+            $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+
+            if ($stmt->execute()) {
+                $this->lastMsg = "Pessoa deletado com sucesso!";
+                return true;
+            } else {
+                $this->lastError[] = array('msg' => "Ocorreu um erro ao deletar pessoa!", 'field' => "execute");
+                return false;
+            }
         } catch (\Throwable $th) {
             $this->lastError[] = array('msg' => $th->getMessage(), 'field' => "execute");
             return false;
