@@ -14,7 +14,7 @@
             <h1>Pessoas</h1>
         </div>
         <div class="col-md-6 mt-4 text-end">
-            <button class="btn btn-success" type="button"><i class="fa-sharp fa-solid fa-user-plus"></i> CADASTRAR</button>
+            <button class="btn btn-success" id="btn-cadastrar" type="button"><i class="fa-sharp fa-solid fa-user-plus"></i> CADASTRAR</button>
         </div>
         <div class="col-md-12">
             <hr>
