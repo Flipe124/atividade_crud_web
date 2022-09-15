@@ -1,4 +1,5 @@
 $(document).ready(function () {
+  // BOTÃO "CADASTRAR"
   $("#btn-cadastrar").on("click", function () {
     $(".error").hide();
 
@@ -7,7 +8,7 @@ $(document).ready(function () {
     $("#modal-cadastrar-pessoa").modal("show");
   });
 
-  // BOTÂO CADASTAR DENTRO DO MODAL "CADASTRAR"
+  // BOTÂO "CADASTAR" DENTRO DO MODAL "CADASTRAR"
   $("#form-cadastrar-pessoa").on("submit", function (event) {
     event.preventDefault();
 
@@ -35,7 +36,9 @@ $(document).ready(function () {
             $(`.error-${error[i].field}`).show();
           }
 
-          $("#form-cadastrar-pessoa button[type=submit]").attr({ disabled: false });
+          $("#form-cadastrar-pessoa button[type=submit]").attr({
+            disabled: false,
+          });
           $("#form-cadastrar-pessoa button[type=submit]").text("SALVAR");
         } else {
           location.replace(
@@ -44,8 +47,47 @@ $(document).ready(function () {
         }
       },
       error: function (response) {
-        $("#form-cadastrar-pessoa button[type=submit]").attr({ disabled: false });
+        $("#form-cadastrar-pessoa button[type=submit]").attr({
+          disabled: false,
+        });
         $("#form-cadastrar-pessoa button[type=submit]").text("SALVAR");
+        console.log(response);
+      },
+    });
+  });
+
+  // BOTÃO "EXCLUIR" DENTRO DO MODAL EXCLUIR
+  $(".btn-confirmar-excluir").on("click", function () {
+    $(".error").hide();
+
+    let id = $(this).data("id");
+
+    $(".btn-confirmar-excluir").attr({ disabled: true });
+    $(".btn-confirmar-excluir").text("EXCLUINDO...");
+
+    $.ajax({
+      url: "../process/pessoa/delete.php",
+      method: "POST",
+      dataType: "json",
+      data: { id },
+      success: function (response) {
+        let { error } = response;
+
+        if (error.length > 0) {
+          for (let i = 0; i < error.length; i++) {
+            $(`.error-${error[i].field}`).text(error[i].msg);
+            $(`.error-${error[i].field}`).show();
+          }
+
+          $(".btn-confirmar-excluir").attr({ disabled: false });
+          $(".btn-confirmar-excluir").text("EXCLUIR");
+        } else {
+          location.replace(`?message=success&action=delete`);
+        }
+      },
+      error: function (response) {
+        $(".btn-confirmar-excluir").attr({ disabled: false });
+        $(".btn-confirmar-excluir").text("EXCLUIR");
         console.log(response);
       },
     });
