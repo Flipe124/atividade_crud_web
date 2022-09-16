@@ -92,4 +92,52 @@ $(document).ready(function () {
       },
     });
   });
+
+  // BOTÃO "EDITAR" PESSOA
+  $(".btn-editar-pessoa").on("click", function () {
+    $(".btn-editar-pessoa").attr({ disabled: true }); 
+    
+    $("#modal-editar-pessoa").modal("show");
+
+    $(".error").hide();
+
+    $("#form-editar-pessoa")[0].reset();
+
+    $("#form-editar-pessoa input").attr({ disabled: false });
+    $("#form-editar-pessoar select").attr({ disabled: false });
+    $("#form-editar-pessoa button[type=submit]").show();
+
+    let id = $(this).data("id");
+
+    $.ajax({
+      url: "../process/pessoa/get.php",
+      method: "GET",
+      dataType: "json",
+      data: { id },
+      success: function (response) {
+        let { error, pessoa } = response;
+
+        $(".btn-editar-pessoa").attr({ disabled: false });
+
+        if (error.length > 0) {
+          $("#form-editar-pessoainput").attr({ disabled: true });
+          $("#form-editar-pessoa select").attr({ disabled: true });
+          $("#form-editar-pessoa button[type=submit]").hide();
+
+          for (let i = 0; i < error.length; i++) {
+            $(`.error-${error[i].field}`).text(error[i].msg);
+            $(`.error-${error[i].field}`).show();
+          }
+        } else {
+          $("#form-editar-pessoa #id").val(pessoa.id);
+          $("#form-editar-pessoa #nome").val(pessoa.nome);
+          $("#form-editar-pessoa #email").val(pessoa.tipo);
+          $("#form-editar-pessoa #status").val(user.status);
+        }
+      },
+      error: function (response) {
+        $(".button-update-user").attr({ disabled: false });
+      },
+    });
+  });
 });
