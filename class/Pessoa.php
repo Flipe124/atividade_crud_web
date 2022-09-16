@@ -1,4 +1,5 @@
 <?php
+require("../../class/Query.php");
 require("../../config/connection.php");
 require("../../class/Validador.php");
 require("../../class/MsgException.php");
@@ -7,6 +8,8 @@ class Pessoa
 {
     protected $lastError = [];
     protected $lastMsg = null;
+    protected $tableName = "pessoa";
+    protected $pessoa = null;
 
     public function lastError()
     {
@@ -18,6 +21,45 @@ class Pessoa
         return $this->lastMsg;
     }
 
+    public function tableName()
+    {
+        return $this->tableName;
+    }
+
+    public function pessoa()
+    {
+        return $this->pessoa;
+    }
+
+    function get($data)
+    {
+        try {
+            $this->lastError = [];
+
+            $id = isset($data['id']) && $data['id'] != '' ? Validador::clearData($data['id']) : null;
+
+            if (!$id) {
+                $this->lastError[] = array('msg' => "Aqui 1", 'field' => "execute");
+                return false;
+            }
+
+            // PEGA TODAS INFORMARÇÕES DA PESSOA
+            $pessoa = Query::getById($this->tableName, $id);
+
+            if (!$pessoa) {
+                $this->lastError[] = array('msg' => "Aqui 2", 'field' => "execute");
+                return false;
+            }
+
+
+            $this->pessoa = $pessoa;
+
+            return true;
+        } catch (\Throwable $th) {
+            $this->lastError[] = array('msg' => $th->getMessage(), 'field' => "execute");
+            return false;
+        }
+    }
 
     function create($data)
     {
