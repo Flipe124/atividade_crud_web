@@ -120,7 +120,7 @@ $(document).ready(function () {
         $(".btn-editar-pessoa").attr({ disabled: false });
 
         if (error.length > 0) {
-          $("#form-editar-pessoainput").attr({ disabled: true });
+          $("#form-editar-pessoa input").attr({ disabled: true });
           $("#form-editar-pessoa select").attr({ disabled: true });
           $("#form-editar-pessoa button[type=submit]").hide();
 
@@ -149,7 +149,7 @@ $(document).ready(function () {
     });
   });
 
-  // BOTÂO ALTERAR USUÀRIO
+  // BOTÂO EDITAR PESSOA CONFIRMAR
   $("#form-editar-pessoa").on("submit", function (event) {
     event.preventDefault(); // CANCELA O RECARREGAMENTO DA PÁGINA
 
@@ -177,7 +177,9 @@ $(document).ready(function () {
             $(`.error-${error[i].field}`).show();
           }
 
-          $("#form-editar-pessoa button[type=submit]").attr({ disabled: false });
+          $("#form-editar-pessoa button[type=submit]").attr({
+            disabled: false,
+          });
           $("#form-editar-pessoa button[type=submit]").text("SALVAR");
         } else {
           location.replace(
@@ -189,6 +191,61 @@ $(document).ready(function () {
         $("#form-editar-pessoa button[type=submit]").attr({ disabled: false });
         $("#form-editar-pessoa button[type=submit]").text("SALVAR");
         console.log(response);
+      },
+    });
+  });
+
+  // BOTÃO "MAIS DETALHES" PESSOA
+  $(".btn-mais-detalhes-pessoa").on("click", function () {
+    $(".btn-mais-detalhes-pessoa").attr({ disabled: true });
+
+    $("#modal-mais-detalhes-pessoa").modal("show");
+
+    $(".error").hide();
+
+    $("#form-mais-detalhes-pessoa")[0].reset();
+
+    $("#form-mais-detalhes-pessoa input").attr({ disabled: true });
+    $("#form-mais-detalhes-pessoa select").attr({ disabled: true });
+
+    let id = $(this).data("id");
+
+    $.ajax({
+      url: "../process/pessoa/get.php",
+      method: "GET",
+      dataType: "json",
+      data: { id },
+      success: function (response) {
+        let { error, pessoa } = response;
+
+        $(".btn-mais-detalhes-pessoa").attr({ disabled: false });
+
+        if (error.length > 0) {
+          $("#form-mais-detalhes-pessoa input").attr({ disabled: true });
+          $("#form-mais-detalhes-pessoa select").attr({ disabled: true });
+          $("#form-mais-detalhes-pessoa button[type=submit]").hide();
+
+          for (let i = 0; i < error.length; i++) {
+            $(`.error-${error[i].field}`).text(error[i].msg);
+            $(`.error-${error[i].field}`).show();
+          }
+        } else {
+          $("#form-mais-detalhes-pessoa #id").val(pessoa.id);
+          $("#form-mais-detalhes-pessoa #nome").val(pessoa.nome);
+          $("#form-mais-detalhes-pessoa #tipo").val(pessoa.tipo);
+          $("#form-mais-detalhes-pessoa #sexo").val(pessoa.sexo);
+          $("#form-mais-detalhes-pessoa #doc").val(pessoa.doc);
+          $("#form-mais-detalhes-pessoa #cep").val(pessoa.cep);
+          $("#form-mais-detalhes-pessoa #endereco").val(pessoa.endereco);
+          $("#form-mais-detalhes-pessoa #numero").val(pessoa.numero);
+          $("#form-mais-detalhes-pessoa #bairro").val(pessoa.bairro);
+          $("#form-mais-detalhes-pessoa #complemento").val(pessoa.complemento);
+          $("#form-mais-detalhes-pessoa #cidade").val(pessoa.cidade);
+          $("#form-mais-detalhes-pessoa #uf").val(pessoa.uf);
+        }
+      },
+      error: function (response) {
+        $(".btn-mais-detalhes-pessoa").attr({ disabled: false });
       },
     });
   });
