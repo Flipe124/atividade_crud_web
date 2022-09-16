@@ -95,8 +95,8 @@ $(document).ready(function () {
 
   // BOTÃO "EDITAR" PESSOA
   $(".btn-editar-pessoa").on("click", function () {
-    $(".btn-editar-pessoa").attr({ disabled: true }); 
-    
+    $(".btn-editar-pessoa").attr({ disabled: true });
+
     $("#modal-editar-pessoa").modal("show");
 
     $(".error").hide();
@@ -131,12 +131,64 @@ $(document).ready(function () {
         } else {
           $("#form-editar-pessoa #id").val(pessoa.id);
           $("#form-editar-pessoa #nome").val(pessoa.nome);
-          $("#form-editar-pessoa #email").val(pessoa.tipo);
-          $("#form-editar-pessoa #status").val(user.status);
+          $("#form-editar-pessoa #tipo").val(pessoa.tipo);
+          $("#form-editar-pessoa #sexo").val(pessoa.sexo);
+          $("#form-editar-pessoa #doc").val(pessoa.doc);
+          $("#form-editar-pessoa #cep").val(pessoa.cep);
+          $("#form-editar-pessoa #endereco").val(pessoa.endereco);
+          $("#form-editar-pessoa #numero").val(pessoa.numero);
+          $("#form-editar-pessoa #bairro").val(pessoa.bairro);
+          $("#form-editar-pessoa #complemento").val(pessoa.complemento);
+          $("#form-editar-pessoa #cidade").val(pessoa.cidade);
+          $("#form-editar-pessoa #uf").val(pessoa.uf);
         }
       },
       error: function (response) {
-        $(".button-update-user").attr({ disabled: false });
+        $(".btn-editar-pessoa").attr({ disabled: false });
+      },
+    });
+  });
+
+  // BOTÂO ALTERAR USUÀRIO
+  $("#form-editar-pessoa").on("submit", function (event) {
+    event.preventDefault(); // CANCELA O RECARREGAMENTO DA PÁGINA
+
+    $(".error").hide();
+
+    let form = $("#form-editar-pessoa")[0];
+
+    $("#form-editar-pessoa button[type=submit]").attr({ disabled: true });
+    $("#form-editar-pessoa button[type=submit]").text("CARREGANDO...");
+
+    $.ajax({
+      url: "../process/pessoa/update.php",
+      processData: false,
+      dataTypeIn: "plain",
+      contentType: false,
+      method: "POST",
+      dataType: "json",
+      data: new FormData(form),
+      success: function (response) {
+        let { error } = response;
+
+        if (error.length > 0) {
+          for (let i = 0; i < error.length; i++) {
+            $(`.error-${error[i].field}`).text(error[i].msg);
+            $(`.error-${error[i].field}`).show();
+          }
+
+          $("#form-editar-pessoa button[type=submit]").attr({ disabled: false });
+          $("#form-editar-pessoa button[type=submit]").text("SALVAR");
+        } else {
+          location.replace(
+            `?message=success&action=update&name=${form.name.value}`
+          );
+        }
+      },
+      error: function (response) {
+        $("#form-editar-pessoa button[type=submit]").attr({ disabled: false });
+        $("#form-editar-pessoa button[type=submit]").text("SALVAR");
+        console.log(response);
       },
     });
   });
