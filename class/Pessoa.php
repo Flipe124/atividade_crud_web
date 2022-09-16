@@ -38,8 +38,10 @@ class Pessoa
 
             $id = isset($data['id']) && $data['id'] != '' ? Validador::clearData($data['id']) : null;
 
+            // print_r("dadsa". $id);
+
             if (!$id) {
-                $this->lastError[] = array('msg' => "Aqui 1", 'field' => "execute");
+                $this->lastError[] = array('msg' => "ID NÃO ENCONTRADO!", 'field' => "execute");
                 return false;
             }
 
@@ -83,43 +85,39 @@ class Pessoa
             }
 
             if (!$tipo) {
-                $this->lastError[] = array('msg' => "informe o tipo", 'field' => "tipo");
+                $this->lastError[] = array('msg' => MsgException::INFORME_TIPO, 'field' => "tipo");
             }
 
             if (!$sexo) {
-                $this->lastError[] = array('msg' => MsgException::INFORME_NOME, 'field' => "sexo");
+                $this->lastError[] = array('msg' => MsgException::INFORME_SEXO, 'field' => "sexo");
             }
 
             if (!$doc) {
-                $this->lastError[] = array('msg' => MsgException::INFORME_NOME, 'field' => "doc");
+                $this->lastError[] = array('msg' => MsgException::INFORME_DOCUMENTO, 'field' => "doc");
             }
 
             if (!$cep) {
-                $this->lastError[] = array('msg' => MsgException::INFORME_NOME, 'field' => "cep");
+                $this->lastError[] = array('msg' => MsgException::INFORME_CEP, 'field' => "cep");
             }
 
             if (!$endereco) {
-                $this->lastError[] = array('msg' => MsgException::INFORME_NOME, 'field' => "endereco");
+                $this->lastError[] = array('msg' => MsgException::INFORME_ENDERECO, 'field' => "endereco");
             }
 
             if (!$numero) {
-                $this->lastError[] = array('msg' => MsgException::INFORME_NOME, 'field' => "numero");
+                $this->lastError[] = array('msg' => MsgException::INFORME_NUMERO, 'field' => "numero");
             }
 
             if (!$bairro) {
-                $this->lastError[] = array('msg' => MsgException::INFORME_NOME, 'field' => "bairro");
-            }
-
-            if (!$complemento) {
-                $this->lastError[] = array('msg' => MsgException::INFORME_NOME, 'field' => "complemento");
+                $this->lastError[] = array('msg' => MsgException::INFORME_BAIRRO, 'field' => "bairro");
             }
 
             if (!$cidade) {
-                $this->lastError[] = array('msg' => MsgException::INFORME_NOME, 'field' => "cidade");
+                $this->lastError[] = array('msg' => MsgException::INFORME_CIDADE, 'field' => "cidade");
             }
 
             if (!$uf) {
-                $this->lastError[] = array('msg' => MsgException::INFORME_NOME, 'field' => "uf");
+                $this->lastError[] = array('msg' => MsgException::INFORME_UF, 'field' => "uf");
             }
 
             if (count($this->lastError) > 0) {
@@ -179,7 +177,7 @@ class Pessoa
             $uf = isset($data['uf']) && $data['uf'] != '' ? Validador::clearData($data['uf']) : null;
 
             if (!$id) {
-                $this->lastError[] = array('msg' => "idddd", 'field' => "nome");
+                $this->lastError[] = array('msg' => MsgException::USUARIO_NAO_EXISTE, 'field' => "nome");
             }
 
 
@@ -188,43 +186,39 @@ class Pessoa
             }
 
             if (!$tipo) {
-                $this->lastError[] = array('msg' => "informe o tipo", 'field' => "tipo");
+                $this->lastError[] = array('msg' => MsgException::INFORME_TIPO, 'field' => "tipo");
             }
 
             if (!$sexo) {
-                $this->lastError[] = array('msg' => MsgException::INFORME_NOME, 'field' => "sexo");
+                $this->lastError[] = array('msg' => MsgException::INFORME_SEXO, 'field' => "sexo");
             }
 
             if (!$doc) {
-                $this->lastError[] = array('msg' => MsgException::INFORME_NOME, 'field' => "doc");
+                $this->lastError[] = array('msg' => MsgException::INFORME_DOCUMENTO, 'field' => "doc");
             }
 
             if (!$cep) {
-                $this->lastError[] = array('msg' => MsgException::INFORME_NOME, 'field' => "cep");
+                $this->lastError[] = array('msg' => MsgException::INFORME_CEP, 'field' => "cep");
             }
 
             if (!$endereco) {
-                $this->lastError[] = array('msg' => MsgException::INFORME_NOME, 'field' => "endereco");
+                $this->lastError[] = array('msg' => MsgException::INFORME_ENDERECO, 'field' => "endereco");
             }
 
             if (!$numero) {
-                $this->lastError[] = array('msg' => MsgException::INFORME_NOME, 'field' => "numero");
+                $this->lastError[] = array('msg' => MsgException::INFORME_NUMERO, 'field' => "numero");
             }
 
             if (!$bairro) {
-                $this->lastError[] = array('msg' => MsgException::INFORME_NOME, 'field' => "bairro");
-            }
-
-            if (!$complemento) {
-                $this->lastError[] = array('msg' => MsgException::INFORME_NOME, 'field' => "complemento");
+                $this->lastError[] = array('msg' => MsgException::INFORME_BAIRRO, 'field' => "bairro");
             }
 
             if (!$cidade) {
-                $this->lastError[] = array('msg' => MsgException::INFORME_NOME, 'field' => "cidade");
+                $this->lastError[] = array('msg' => MsgException::INFORME_CIDADE, 'field' => "cidade");
             }
 
             if (!$uf) {
-                $this->lastError[] = array('msg' => MsgException::INFORME_NOME, 'field' => "uf");
+                $this->lastError[] = array('msg' => MsgException::INFORME_UF, 'field' => "uf");
             }
 
             if (count($this->lastError) > 0) {
