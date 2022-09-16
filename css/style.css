@@ -1,11 +1,27 @@
-body {
-    background-color: black;
+* {
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-.error{
-    color: red;
+#background{
+  background-image: url("../img/space-7273891_1920.jpg") !important;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
-#container-principal{
-    background-color: lightyellow;
+.error {
+  color: red;
+}
+
+#container-principal {
+  background: rgb(255, 255, 255, 0.75);
+  color: rgb(0, 0, 0);
+  border-radius: 12px;
+}
+
+table {
+  background-color: #cfd6e4 !important;
+}
+
+button {
+  border-radius: 9px !important;
 }
