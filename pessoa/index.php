@@ -200,11 +200,8 @@ $pessoas = $connection->connection()->query($sql)->fetchAll(PDO::FETCH_ASSOC);
                                 <button class="btn btn-outline-primary btn-editar-pessoa" data-id="<?php echo $pessoa['id']; ?>">
                                     <i class="fa-sharp fa-solid fa-pen"></i> EDITAR
                                 </button>
-
-
                             </td>
                         </tr>
-
                     <?php } ?>
                 </tbody>
             </table>
@@ -314,7 +311,7 @@ $pessoas = $connection->connection()->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header bg-secondary">
-                <h3 class="modal-title text-light">Editar</h3>
+                <h3 class="modal-title text-light">Mais detalhes</h3>
                 <button type="button" class="btn-close bg-light me-2" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
