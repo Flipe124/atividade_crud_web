@@ -123,8 +123,8 @@ $pessoas = $connection->connection()->query($sql)->fetchAll(PDO::FETCH_ASSOC);
                         <th>Sexo</th>
                         <th>CPF/CNPJ</th>
                         <th>Cidade</th>
-                        <th>CEP</th>
-                        <th>Endereço</th>
+                        <!-- <th>CEP</th> -->
+                        <!-- <th>Endereço</th> -->
                         <!-- <th>Número</th>
                         <th>Bairro</th>
                         <th>Complemento</th>
@@ -150,12 +150,12 @@ $pessoas = $connection->connection()->query($sql)->fetchAll(PDO::FETCH_ASSOC);
                             <td>
                                 <?php echo $pessoa['cidade'] ?>
                             </td>
-                            <td>
+                            <!-- <td>
                                 <?php echo $pessoa['cep'] ?>
-                            </td>
-                            <td>
+                            </td> -->
+                            <!-- <td>
                                 <?php echo $pessoa['endereco'] ?>
-                            </td>
+                            </td> -->
                             <!-- <td>
                                 <?php echo $pessoa['numero'] ?>
                             </td>
