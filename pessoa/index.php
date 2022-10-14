@@ -111,8 +111,8 @@ $pessoas = $connection->connection()->query($sql)->fetchAll(PDO::FETCH_ASSOC);
                 </div>
             </div>
         </div>
-        <div class="col-md-12">
-            <hr>
+        <div class="col-md-12 mt-3">
+            <!-- <hr> -->
         </div>
         <div class="col-md-12">
             <table class="table table-striped table-hover">
